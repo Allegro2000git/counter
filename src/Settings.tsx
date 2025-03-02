@@ -19,13 +19,17 @@ export const Settings = ({hideSettings, startValue, maxValue}: SettingsProps ) =
 
     const changeStartValue = (e: ChangeEvent<HTMLInputElement>) => {
         setLocalStartValue(Number(e.currentTarget.value));
-        localStorage.setItem("startValue", JSON.stringify(e.currentTarget.value));
     }
 
     const changeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
         setLocalMaxValue(Number(e.currentTarget.value));
-        localStorage.setItem("maxValue", JSON.stringify(e.currentTarget.value));
+
     }
+
+    useEffect(() => {
+        localStorage.setItem("startValue", JSON.stringify(startValue));
+        localStorage.setItem("maxValue", JSON.stringify(maxValue));
+    }, [startValue, maxValue]);
 
     useEffect(() => {
         let valueAsStringStart = localStorage.getItem("startValue");
@@ -55,7 +59,7 @@ export const Settings = ({hideSettings, startValue, maxValue}: SettingsProps ) =
                     <input className={isError || isStartValueNegative ? "input_error" : "input2"} type={"number"} value={localStartValue} onChange={changeStartValue}></input>
                 </div>
             </div>
-            <Button classes={'counter_set'} title={"Set"} onClickHandler={clickHandler} disabled={isError || !localMaxValue}/>
+            <Button classes={'counter_set'} title={"Set"} onClickHandler={clickHandler} disabled={isError || !localMaxValue || isStartValueNegative}/>
         </div>
     );
 };
