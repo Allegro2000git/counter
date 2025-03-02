@@ -1,30 +1,24 @@
 import {Button} from "./Button";
-import {useState} from "react";
 import {Display} from "./Display";
 
-export const Counter = () => {
 
-    const minValue = 0;
-    const maxValue = 5;
+type CounterProps = {
+    count: number;
+    startValue: number;
+    maxValue: number;
+    getNextNum: () => void;
+    reset: () => void;
+    showSettings: () => void;
+}
 
-    const [count, setCount] = useState<number>(minValue);
-
-    const getNextNum = () => {
-        if (count < maxValue) {
-            setCount(count+1);
-        }
-    };
-
-    const reset = () => {
-        setCount(minValue)
-    }
-
+export const Counter = ({count, startValue, maxValue, reset, getNextNum, showSettings}: CounterProps) => {
     return (
         <div className="counter">
             <Display count={count} maxValue={maxValue} />
             <div className={'btn_container'}>
                 <Button title={"Inc"} onClickHandler={getNextNum} disabled={count === maxValue} classes={`button ${ count === maxValue ? 'disabled' : 'active'}`}/>
-                <Button title={"Reset"} onClickHandler={reset} disabled={count === minValue} classes={`button ${ count === minValue ? 'disabled' : 'active'}`}/>
+                <Button title={"Reset"} onClickHandler={reset} disabled={count === startValue} classes={`button ${ count === startValue ? 'disabled' : 'active'}`}/>
+                <Button title={"Set"} onClickHandler={showSettings} classes={'counter_set'}/>
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 type ButtonType = {
     title: string;
     onClickHandler?: () => void;
-    disabled: boolean;
+    disabled?: boolean;
     classes?: string;
 }
 

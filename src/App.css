@@ -2,15 +2,13 @@ body {
     background-color: rgb(135, 135, 255)
 }
 .counter {
-    font-weight: 700;
-    font-size: 25px;
-    border: 3px solid #ffa900;
+    border: 2px solid #ffa900;
     width: 400px;
     height: 250px;
+    padding-top: 40px;
     text-align: center;
     margin: 10% auto;
     border-radius: 10px;
-    padding-top: 25px;
     background-color: rgb(135, 135, 255);
 }
 
@@ -29,18 +27,18 @@ body {
 .button {
     border: none;
     border-radius: 5px;
-    font-size: 50px;
+    font-size: 20px;
     color: black;
     transition: 1s ease-in-out;
 }
 
 
 .btn_container {
-    margin-top: 40px;
     display: inline-flex;
     border: 3px solid #ffa900;
     border-radius: 10px;
     padding: 10px;
+    margin-top: 75px;
     gap: 10px;
     background-color: rgb(135, 135, 255);
 
@@ -56,3 +54,57 @@ body {
     opacity: 0.5;
 }
 
+.counter_set {
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    padding: 5px 10px;
+    background-color: #ffa900;
+}
+
+/*settings*/
+.settings {
+    border: 2px solid #ffa900;
+    width: 400px;
+    height: 250px;
+    text-align: center;
+    margin: 10% auto;
+    border-radius: 10px;
+    background-color: rgb(135, 135, 255);
+}
+
+.settings_container {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    margin: 50px 0;
+}
+
+.settings_item {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.input1, .input2 {
+    border-color: #ffa900;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 15px;
+
+}
+
+.inputName{
+    display: inline-block;
+    font-family: "Montserrat", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffa900;
+}
+
+.input_error {
+    border: 2px solid red;
+    border-radius: 5px;
+    background-color: red;
+    opacity: 0.5;
+}
