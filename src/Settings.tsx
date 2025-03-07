@@ -27,9 +27,9 @@ export const Settings = ({hideSettings, startValue, maxValue}: SettingsProps ) =
     }
 
     useEffect(() => {
-        localStorage.setItem("startValue", JSON.stringify(startValue));
-        localStorage.setItem("maxValue", JSON.stringify(maxValue));
-    }, [startValue, maxValue]);
+        localStorage.setItem("startValue", JSON.stringify(localStartValue));
+        localStorage.setItem("maxValue", JSON.stringify(localMaxValue));
+    }, [localStartValue, localMaxValue]);
 
     useEffect(() => {
         let valueAsStringStart = localStorage.getItem("startValue");
