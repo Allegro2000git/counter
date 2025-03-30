@@ -1,41 +1,63 @@
 import './App.css';
-import {Counter} from "./Counter";
-import {useState} from "react";
-import {Settings} from "./Settings";
+import {ChangeEvent, useEffect, useReducer, useState} from "react";
+import {Settings} from "./components/Settings";
+import {
+    CounterReducer, getInitialState,
+    IncrementAC,
+    ResetAC, SetCountAC, SetLocalMaxValueAC, SetLocalStartValueAC,
+} from "./module/counter-reducer";
+import {Counter} from "./components/Counter";
 
 function App() {
 
-    const [count, setCount] = useState<number>(0);
-    const [settings, setSettings] = useState<boolean>(false);
+    const [{startValue, maxValue, count}, dispatchCounter] = useReducer(CounterReducer, getInitialState())
+    const [settings, setSettings] = useState(false)
 
-    const [startValue, setStartValue] = useState<number>(0);
-    const [maxValue, setMaxValue] = useState<number>(5);
+    useEffect(() => {
+        localStorage.setItem("startValue", JSON.stringify(startValue));
+        localStorage.setItem("maxValue", JSON.stringify(maxValue));
+        localStorage.setItem("count", JSON.stringify(count));
+    }, [startValue, maxValue, count]);
 
-    const showSettings = () => setSettings(true);
 
-    const hideSettings = (startValue:number, maxValue:number) => {
-        setSettings(false)
-        setStartValue(startValue)
-        setMaxValue(maxValue)
-        setCount(startValue)
-    };
+    const hideSettings = () => {
+        setSettings(!settings)
+        dispatchCounter(SetCountAC(startValue))
+    }
 
-    const getNextNum = () => {
-        if (count < maxValue) {
-            setCount(count+1);
-        }
-    };
+    const incrementCounter = () => {
+        dispatchCounter(IncrementAC(count))
+    }
 
-    const reset = () => {
-        setCount(startValue)
+    const resetCounter = () => {
+        dispatchCounter(ResetAC(startValue))
+    }
+
+    const changeStartValue = (e: ChangeEvent<HTMLInputElement>) => {
+        dispatchCounter(SetLocalStartValueAC(Number(e.currentTarget.value)))
+    }
+
+    const changeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
+        dispatchCounter(SetLocalMaxValueAC(Number(e.currentTarget.value)))
     }
 
 
     return (
     <div className="App">
         {settings
-            ? <Settings  hideSettings={hideSettings} startValue={startValue} maxValue={maxValue}/>
-            : <Counter count={count} startValue={startValue} maxValue={maxValue} getNextNum={getNextNum} reset={reset} showSettings={showSettings} />}
+            ? <Settings  hideSettings={hideSettings}
+                         startValue={startValue}
+                         maxValue={maxValue}
+                         setLocalStartValue={changeStartValue}
+                         setLocalMaxValue={changeMaxValue}
+            />
+            : <Counter count={count}
+                       startValue={startValue}
+                       maxValue={maxValue}
+                       increment={incrementCounter}
+                       reset={resetCounter}
+                       showSettings={hideSettings}
+            />}
     </div>
   );
 }
