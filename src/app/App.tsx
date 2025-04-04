@@ -26,8 +26,8 @@ function App() {
         dispatch(IncrementAC())
     }
 
-    const resetCounter = (startValue: number) => {
-        dispatch(ResetAC({startValue}))
+    const resetCounter = (count: number) => {
+        dispatch(ResetAC({count}))
     }
 
 

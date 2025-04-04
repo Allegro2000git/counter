@@ -8,7 +8,7 @@ const initialState = {
 }
 
 export const IncrementAC = createAction('counter/Increment');
-export const ResetAC = createAction<{startValue: number}>('counter/Reset');
+export const ResetAC = createAction<{count: number}>('counter/Reset');
 export const SetCountAC = createAction<{count: number}>('counter/SetCount');
 export const SetLocalStartValueAC = createAction<{startValue: number}>('counter/SetLocalStartValueAC');
 export const SetLocalMaxValueAC = createAction<{maxValue: number}>('counter/SetLocalMaxValueAC');
@@ -19,7 +19,7 @@ export const counterReducer = createReducer(initialState, builder => {
             state.count +=  1;
         })
         .addCase(ResetAC, (state, action) => {
-            state.count = action.payload.startValue
+            state.count = action.payload.count
         })
         .addCase(SetCountAC, (state, action) => {
             state.count = action.payload.count;
